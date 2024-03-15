@@ -60,9 +60,26 @@ export const editarTarea = async (req, res) => {
         }
         await Tarea.findByIdAndUpdate(req.params.id, req.body)
         res.status(200).json({
-            mensaje: "El producto fue modificado exitosamente"
+            mensaje: "La tarea fue modificada exitosamente"
         })
     } catch (error) {
         res.status(500).json({mensaje: "Ocurrió un error al intentar editar la tarea"})
+    }
+}
+
+export const borrarTarea = async (req, res) => {
+    try {
+        const buscarTarea = await Tarea.findById(req.params.id)
+        if(!buscarTarea){
+            return res.status(404).json({
+                mensaje: "No se puedo editar la tarea, el id es incorrecto"
+            })
+        }
+        await Tarea.findByIdAndDelete(req.params.id)
+        res.status(200).json({
+            mensaje: "La tarea fue eliminada exitosamente"
+        })
+    } catch (error) {
+        res.status(500).json({mensaje: "Ocurrió un error al intentar eliminar la tarea"})
     }
 }
