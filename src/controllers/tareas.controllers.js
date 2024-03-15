@@ -22,6 +22,19 @@ export const obtenerTareaPorId = async (req, res) => {
     }
 }
 
+export const obtenerTareaPorNombre = async (req, res) => {
+    try {
+        const tareaBuscadaPorNombre = await Tarea.find({nombreTarea: req.params.nombre}).exec();
+        console.log(req.params.nombre)
+        res.status(200).json(tareaBuscadaPorNombre)
+    } catch (error) {
+        res.status(404).json({
+            mensaje: "No se encontró la tarea"
+        })
+    }
+}
+
+
 export const crearTarea = async (req, res) => {
     try {
         const tareaNueva = new Tarea(req.body)
