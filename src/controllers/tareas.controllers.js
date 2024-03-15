@@ -11,6 +11,17 @@ export const listarTareas = async (req, res) => {
     }
 }
 
+export const obtenerTareaPorId = async (req, res) => {
+    try {
+        const tareaBuscadaPorId = await Tarea.findById(req.params.id);
+        res.status(200).json(tareaBuscadaPorId)
+    } catch (error) {
+        res.status(404).json({
+            mensaje: "No se encontró la tarea"
+        })
+    }
+}
+
 export const crearTarea = async (req, res) => {
     try {
         const tareaNueva = new Tarea(req.body)
